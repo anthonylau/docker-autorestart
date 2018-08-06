@@ -15,9 +15,9 @@ do
     id=$(echo $event | jq -r 'select((.Action | test("health_status: unhealthy")) and .Actor.Attributes["io.github.anthonylau.docker-autorestart"]) | .id')
     if ! [ -z "$id" ]; then
         name=$(docker inspect $id | jq '.[0].Name')
-        echo "Restarting container $name $id"
+        echo "$(date) Restarting container $name $id"
         docker restart $id
-        echo "Restarted container $id"
+        echo "$(date) Restarted container $id"
         sleep 5
     fi
 done
